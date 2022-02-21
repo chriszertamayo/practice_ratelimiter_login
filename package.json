@@ -1,0 +1,24 @@
+{
+  "name": "practice_login_attempt",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.26.0",
+    "body-parser": "^1.19.1",
+    "cors": "^2.8.5",
+    "express": "^4.17.2",
+    "express-handlebars": "^6.0.2",
+    "ioredis": "^4.28.5",
+    "method-override": "^3.0.0",
+    "node-fetch": "^3.2.0",
+    "node-redis": "^0.1.7",
+    "nodemon": "^2.0.15",
+    "passport": "^0.5.2",
+    "rate-limiter-flexible": "^2.3.6",
+    "redis": "^4.0.3"
+  }
+}
