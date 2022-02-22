@@ -65,7 +65,16 @@ async function loginRoute(req, res) {
     } else {
         const user = authorise(username, req.body.password); // should be implemented in your project
         console.log(user)
-        if (!user.data.isLoggedIn) {
+        if (user.data) {
+
+            if (user.isLoggedIn > 0) {
+                if (rlResUsername !== null && rlResUsername.consumedPoints > 0) {
+                    await limiterConsecutiveFailsByUsername.delete(username)
+                }
+
+                return res.send('authorised')
+            }
+
             try {
                 await limiterConsecutiveFailsByUsername.consume(username)
 
@@ -77,14 +86,6 @@ async function loginRoute(req, res) {
                     res.set('Retry-After', String(Math.round(rlRejected.msBeforeNext / 1000 || 1)))
                     res.status(429).send('Too Many Requests')
                 }
-            }
-
-            if (user.data.isLoggedIn) {
-                if (rlResUsername !== null && rlResUsername.consumedPoints > 0) {
-                    await limiterConsecutiveFailsByUsername.delete(username)
-                }
-
-                res.end('authorised')
             }
         }
     }
